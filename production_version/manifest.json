@@ -1,11 +1,15 @@
 {
-  "manifest_version": 2,
-  "name": "Link Checker",
+  "manifest_version": 3,
+  "name": "Link Checker | Team NA",
   "version": "1.0",
-  "description": "Check for empty href and missing target='_blank' attributes in links.",
+  "description": "Check empty href and missing target='_blank' attributes in a tag. | Developed by: Khaled Saifullah | Portfolio: https://ksnirob.com",
   "permissions": ["activeTab"],
-  "browser_action": {
-    "default_icon": "icon.png",
+  "action": {
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
     "default_popup": "popup.html"
   },
   "content_scripts": [
