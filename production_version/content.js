@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
       allLinks.forEach(link => {
         if (link.getAttribute('href') === '') {
-          console.warn('Empty link found:', link);
+          // console.warn('Empty link found:', link);
           link.style.border = '2px solid #D2333D';
           link.style.padding = '2px';
           emptyLinksDetected = true;
@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   
       allLinks.forEach(link => {
         if (!link.getAttribute('target') || link.getAttribute('target') !== '_blank') {
-          console.warn('Link without target="_blank" found:', link);
+          // console.warn('Link without target="_blank" found:', link);
           link.style.border = '2px solid #E17F3F';
           link.style.padding = '2px';
           allLinksHaveTargetBlank = false;
@@ -36,5 +36,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         alert('Everything is okay. All links have target="_blank".');
       }
     }
-  });
+  
+  if (request.action === 'checkRolePresentation') {
+      const allTable = document.querySelectorAll('table');
+
+      let alltableHaveRolePresentation = true;
+
+      allTable.forEach(table => {
+        if (!table.getAttribute('role') || table.getAttribute('role') !== 'presentation') {
+          // console.warn('Table without role="presentation" found:', table);
+          table.style.border = '2px solid #612CB0';
+          alltableHaveRolePresentation = false;
+        }
+      });
+
+      if (alltableHaveRolePresentation) {
+        alert('Everything is okay. All Table have role="presentation".');
+      }
+    }
+});
   
