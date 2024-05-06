@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Team Dell NA | Email Analyzer",
-  "version": "1.3",
-  "description": "The extension developed for the Team Dell NA internal use only. This will help developers and QA and reduce development time. | Developed by: Khaled Saifullah | Portfolio: https://ksnirob.com",
+  "name": "Link & Role Checker | Team NA",
+  "version": "1.2",
+  "description": "Check empty href and missing target='_blank' attributes in a tag. Check missing role='presentation' in table tag | Developed by: Khaled Saifullah | Portfolio: https://ksnirob.com",
   "permissions": ["activeTab"],
   "action": {
     "icons": {

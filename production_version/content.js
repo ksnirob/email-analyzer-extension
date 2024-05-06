@@ -1,4 +1,6 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  
+    // Check empty link
     if (request.action === 'checkEmptyLinks') {
       const allLinks = document.querySelectorAll('a');
   
@@ -16,8 +18,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       if (!emptyLinksDetected) {
         alert('No empty links found.');
       }
-    }
+  }
   
+    // Check target="_blank"
     if (request.action === 'checkTargetBlank') {
       const allLinks = document.querySelectorAll('a');
   
@@ -37,22 +40,41 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       }
     }
   
-  if (request.action === 'checkRolePresentation') {
-      const allTable = document.querySelectorAll('table');
+    // Check role="presentation"
+    if (request.action === 'checkRolePresentation') {
+        const allTable = document.querySelectorAll('table');
 
-      let alltableHaveRolePresentation = true;
+        let alltableHaveRolePresentation = true;
 
-      allTable.forEach(table => {
-        if (!table.getAttribute('role') || table.getAttribute('role') !== 'presentation') {
-          // console.warn('Table without role="presentation" found:', table);
-          table.style.border = '2px solid #612CB0';
-          alltableHaveRolePresentation = false;
+        allTable.forEach(table => {
+          if (!table.getAttribute('role') || table.getAttribute('role') !== 'presentation') {
+            // console.warn('Table without role="presentation" found:', table);
+            table.style.border = '2px solid #612CB0';
+            alltableHaveRolePresentation = false;
+          }
+        });
+
+        if (alltableHaveRolePresentation) {
+          alert('Everything is okay. All Table have role="presentation".');
         }
-      });
-
-      if (alltableHaveRolePresentation) {
-        alert('Everything is okay. All Table have role="presentation".');
-      }
     }
+  // Show hidden banner
+  if (request.action === "executeCode") {
+
+    var htmlContent = document.documentElement.innerHTML;
+
+    var uncommentedCode = htmlContent.replace(/<!--(?!<!\[endif\]-->)\s*([\s\S]*?)\s*-->/g, function(match, group1) {
+        var uncommentedCodeFix = group1.replace(/<style>[\s\S]*?<\/style>/g, '');
+        uncommentedCodeFix += '<img>';
+
+        return uncommentedCodeFix;
+    });
+
+    try {
+        document.body.innerHTML = uncommentedCode;
+    } catch (error) {
+        console.error("Error setting innerHTML:", error);
+    }
+}
 });
   
